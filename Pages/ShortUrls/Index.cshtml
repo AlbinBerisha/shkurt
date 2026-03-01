@@ -1,0 +1,33 @@
+@page
+@model Shkurt.Pages.ShortUrls.IndexModel
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ShortUrl[0].OriginalUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShortUrl[0].Id)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ShortUrl) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OriginalUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
