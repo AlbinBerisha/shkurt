@@ -8,7 +8,7 @@ namespace Shkurt.Controllers;
 public class ShortUrlController(ShkurtDbContext dbContext) : Controller
 {
 	[HttpGet("{id}")]
-	public async Task<IActionResult> RedirectTo(Guid id)
+	public async Task<IActionResult> RedirectTo(string id)
 	{
 		ShortUrl? shortUrl = await dbContext.ShortUrls.FindAsync(id);
 		if (shortUrl == null)
