@@ -8,14 +8,8 @@ namespace Shkurt.Pages;
 
 public class IndexModel(ShkurtDbContext shkurtDbContext) : PageModel
 {
-
     [BindProperty]
     public ShortUrlCreateViewModel ShortUrl { get; set; } = default!;
-
-    public IActionResult OnGet()
-    {
-        return Page();
-    }
 
     public async Task<IActionResult> OnPost()
     {
@@ -23,6 +17,7 @@ public class IndexModel(ShkurtDbContext shkurtDbContext) : PageModel
             return Page();
         ShortUrl shortUrl = new()
         {
+            Id = Guid.NewGuid().ToString(),
             OriginalUrl = ShortUrl.OriginalUrl
         };
         shkurtDbContext.ShortUrls.Add(shortUrl);
