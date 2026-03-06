@@ -4,6 +4,6 @@ namespace Shkurt.ViewModels;
 
 public class ShortUrlCreateViewModel
 {
-	[Required]
+	[Required(ErrorMessage = "The URL is required")]
 	public required string OriginalUrl { get; set; }
 }
