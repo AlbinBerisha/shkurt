@@ -6,5 +6,6 @@ public class ShortUrlCreateViewModel
 {
 	[Url]
 	[Required]
+	[Required(ErrorMessage = "The URL is required")]
 	public required string OriginalUrl { get; set; }
 }
