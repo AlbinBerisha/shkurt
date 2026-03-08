@@ -10,11 +10,12 @@ public class IndexModel(ShkurtDbContext shkurtDbContext) : PageModel
 {
     [BindProperty]
     public ShortUrlCreateViewModel ShortUrl { get; set; } = default!;
+    public string GeneratedShortUrl { get; set; } = null!;
 
-    public async Task<IActionResult> OnPost()
+    public async Task OnPost()
     {
         if (!ModelState.IsValid)
-            return Page();
+            return;
         ShortUrl shortUrl = new()
         {
             Id = Guid.NewGuid().ToString(),
@@ -23,7 +24,6 @@ public class IndexModel(ShkurtDbContext shkurtDbContext) : PageModel
         shkurtDbContext.ShortUrls.Add(shortUrl);
         await shkurtDbContext.SaveChangesAsync();
         var request = HttpContext.Request;
-        TempData["ShortUrl"] = $"{request.Scheme}://{request.Host}/{shortUrl.Id}";
-        return Redirect("/Result");
+        GeneratedShortUrl = $"{request.Scheme}://{request.Host}/{shortUrl.Id}";
     }
 }
