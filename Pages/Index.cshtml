@@ -10,24 +10,56 @@
         <div class="row justify-content-center">
             <div class="col-xl-6">
                 <div class="text-center text-white">
-                    <h1 class="mb-5">Generate short URL</h1>
-                    <form method="post">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @if (Model.GeneratedShortUrl == null)
+                    {
+                        <h1 class="mb-5">Generate short URL</h1>
+                        <form method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="row">
+                                <div class="col">
+                                    <input class="form-control form-control-lg" asp-for="ShortUrl.OriginalUrl" type="text"
+                                           placeholder="Long URL" />
+                                    <span asp-validation-for="ShortUrl.OriginalUrl" class="text-white"></span>
+                                </div>
+                                <div class="col-auto">
+                                    <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Generate</button>
+                                </div>
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        <h1 class="mb-5">Your shortened URL</h1>
                         <div class="row">
                             <div class="col">
-                                <input class="form-control form-control-lg" asp-for="ShortUrl.OriginalUrl" type="text" placeholder="Long URL" />
-                                <span asp-validation-for="ShortUrl.OriginalUrl" class="text-white"></span>
+                                <input class="form-control form-control-lg" disabled type="url" value="@Model.GeneratedShortUrl" />
                             </div>
                             <div class="col-auto">
-                                <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Generate</button>
+                                <button class="btn btn-primary btn-lg" id="copy-button"
+                                        onclick="copyToClipboard()">Copy</button>
                             </div>
                         </div>
-                    </form>
+                    }
                 </div>
             </div>
         </div>
     </div>
 </header>
+
+<script>
+    function copyToClipboard() {
+        navigator.clipboard.writeText("@Model.ShortUrl")
+            .then(() => {
+                alert("Copied to clipboard!");
+                const copyButton = document.getElementById("copy-button");
+                copyButton.innerText = "Copied";
+                copyButton.setAttribute("disabled", "true");
+            })
+            .catch(err => {
+                console.error("Failed to copy: ", err);
+            });
+    }
+</script>
 
 @* <hr />
 <div class="row">
@@ -46,8 +78,8 @@
     </div>
 </div> *@
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
     }
-}
