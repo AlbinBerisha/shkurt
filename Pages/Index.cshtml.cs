@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Shkurt.Data;
 using Shkurt.Entities;
+using Shkurt.Helpers;
 using Shkurt.ViewModels;
+
 
 namespace Shkurt.Pages;
 
@@ -16,9 +18,10 @@ public class IndexModel(ShkurtDbContext shkurtDbContext) : PageModel
     {
         if (!ModelState.IsValid)
             return;
+        var id = ShortIdGenerator.Generate()[..7];
         ShortUrl shortUrl = new()
         {
-            Id = Guid.NewGuid().ToString(),
+            Id = id,
             OriginalUrl = ShortUrl.OriginalUrl
         };
         shkurtDbContext.ShortUrls.Add(shortUrl);
