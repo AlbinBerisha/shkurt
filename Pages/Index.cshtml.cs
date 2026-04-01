@@ -5,7 +5,6 @@ using Shkurt.Entities;
 using Shkurt.Helpers;
 using Shkurt.ViewModels;
 
-
 namespace Shkurt.Pages;
 
 public class IndexModel(ShkurtDbContext shkurtDbContext) : PageModel
@@ -18,7 +17,7 @@ public class IndexModel(ShkurtDbContext shkurtDbContext) : PageModel
     {
         if (!ModelState.IsValid)
             return;
-        var id = ShortIdGenerator.Generate()[..7];
+        var id = ShortIdGenerator.Generate();
         ShortUrl shortUrl = new()
         {
             Id = id,
