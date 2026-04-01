@@ -32,7 +32,8 @@
                         <h1 class="mb-5">Your shortened URL</h1>
                         <div class="row">
                             <div class="col">
-                                <input class="form-control form-control-lg" disabled type="url" value="@Model.GeneratedShortUrl" />
+                                <input class="form-control form-control-lg" disabled type="url"
+                                       value="@Model.GeneratedShortUrl" />
                             </div>
                             <div class="col-auto">
                                 <button class="btn btn-primary btn-lg" id="copy-button"
@@ -46,20 +47,22 @@
     </div>
 </header>
 
-<script>
-    function copyToClipboard() {
-        navigator.clipboard.writeText("@Model.ShortUrl")
-            .then(() => {
-                alert("Copied to clipboard!");
-                const copyButton = document.getElementById("copy-button");
-                copyButton.innerText = "Copied";
-                copyButton.setAttribute("disabled", "true");
-            })
-            .catch(err => {
-                console.error("Failed to copy: ", err);
-            });
-    }
-</script>
+@if (Model.GeneratedShortUrl != null)
+{
+    <script>
+        function copyToClipboard() {
+            navigator.clipboard.writeText("@Model.GeneratedShortUrl")
+                .then(() => {
+                    const copyButton = document.getElementById("copy-button");
+                    copyButton.innerText = "Copied";
+                    copyButton.setAttribute("disabled", "true");
+                })
+                .catch(err => {
+                    console.error("Failed to copy: ", err);
+                });
+        }
+    </script>
+}
 
 @* <hr />
 <div class="row">
@@ -78,8 +81,8 @@
     </div>
 </div> *@
 
-    @section Scripts {
-        @{
-            await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        }
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+}
