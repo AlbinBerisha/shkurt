@@ -8,5 +8,8 @@
   },
   "ConnectionStrings": {
     "ShkurtDbContext": "Data Source=Shkurt.db"
+  },
+  "Contact": {
+    "Email": "example@email.com"
   }
 }
