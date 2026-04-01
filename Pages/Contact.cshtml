@@ -1,0 +1,23 @@
+@page "/contact"
+@inject IConfiguration Configuration
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<div class="container my-5">
+    <h1 class="mb-4">Contact Us</h1>
+
+    <p>If you need help or want to report an issue, feel free to reach out.</p>
+
+    <p><strong>Email:</strong> <a href="mailto:@Configuration["Contact:Email"]">@Configuration["Contact:Email"]</a></p>
+
+    <h4 class="mt-4">You can contact us about:</h4>
+    <ul>
+        <li>Reporting malicious or abusive links</li>
+        <li>Requesting link removal</li>
+        <li>Technical issues</li>
+        <li>General questions</li>
+    </ul>
+
+    <p>We aim to respond within <strong>24–48 hours</strong>.</p>
+</div>
