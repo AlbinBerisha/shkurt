@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Shkurt.Data;
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,14 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
+
+    // Optionally, restrict to your proxy server IP(s) for security
+    // KnownProxies = { IPAddress.Parse("YOUR_NGINX_SERVER_IP") }
+});
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -18,7 +27,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseRouting();
 
